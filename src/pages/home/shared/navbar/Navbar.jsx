@@ -1,7 +1,24 @@
 import React from 'react';
 // import logoImg from '../../../../assets/1.png'
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import useAuth from '../../../../hooks/useAuth';
+import { toast } from 'react-toastify';
 const Navbar = () => {
+    const { user, logOut } = useAuth();
+    console.log(user)
+    const navigate = useNavigate();
+    const handleLogOut = () => {
+        logOut()
+            .then(result => {
+                console.log(result)
+                toast.success("LogOut succesfully")
+                navigate('/')
+            })
+            .catch(error => {
+                console.log(error.message)
+                toast.error("LouOut failed ..try again")
+            })
+    }
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
@@ -15,14 +32,7 @@ const Navbar = () => {
                         <li><Link to={'/'}>Home</Link></li>
                         <li><Link to={'/joinAsEmployee'}>Join as Employee</Link></li>
                         <li><Link to={'/JoinAsHrManager'}>Join as HR Manager</Link></li>
-                        {/* dropdown menu */}
-                        {/* <li>
-                            <a>Parent</a>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </li> */}
+
 
                     </ul>
                 </div>
@@ -36,43 +46,35 @@ const Navbar = () => {
                     <li><Link to={'/'}>Home</Link></li>
                     <li><Link to={'/joinAsEmployee'}>Join as Employee</Link></li>
                     <li><Link to={'/JoinAsHrManager'}>Join as HR Manager</Link></li>
-                    {/* droupdown menu */}
-                    {/* <li>
-                        <details>
-                            <summary>Parent</summary>
-                            <ul className="p-2 bg-base-100 w-40 z-1">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </details>
-                    </li> */}
+
 
                 </ul>
             </div>
             {/* login button */}
             <div className="navbar-end">
-                <h1 className='btn'>Login</h1>
-                <div className="dropdown dropdown-end">
+                {user ? <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                        <div className="w-10 rounded-full">
+                        <div className="w-10 bg-gray-400 rounded-full">
                             <img
-                                alt="Tailwind CSS Navbar component"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                alt="user Image"
+                                src={user?.photoURL} />
                         </div>
                     </div>
                     <ul
                         tabIndex="-1"
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                        <li>
-                            <a className="justify-between">
-                                Profile
-                                <span className="badge">New</span>
-                            </a>
-                        </li>
-                        <li><a>Settings</a></li>
-                        <li><a>Logout</a></li>
+                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow  ">
+                        <div className='flex flex-col gap-2'>
+
+
+                            <Link> <li className='btn'>Profile</li></Link>
+                            <li className='btn' type="submit" onClick={handleLogOut}>Logout</li>
+                        </div>
                     </ul>
-                </div>
+                </div> : <Link to={'/login'}><h1 className='btn'>Login</h1></Link>
+
+                }
+
+
             </div>
         </div>
     );
