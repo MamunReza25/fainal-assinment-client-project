@@ -5,6 +5,16 @@ import EmployeeRegister from "../pages/register/empolyeeRegister/EmployeeRegiste
 import ManagerRegister from "../pages/register/hrManagerRegister/ManagerRegister";
 import Login from "../pages/register/login/Login";
 import Error from "../pages/errorPage/Error";
+import DashBoardLayout from "../layouts/deshboardLayout/DashBoardLayout";
+import AddAsset from "../pages/deshBoard/HR dasboard/AddAsset";
+import AssetList from "../pages/deshBoard/HR dasboard/AssetList";
+import AllRequest from "../pages/deshBoard/HR dasboard/AllRequest";
+import EmployeeList from "../pages/deshBoard/HR dasboard/EmployeeList";
+import Package from "../pages/home/packegeSection/Package";
+import RequestAsset from "../pages/deshBoard/EmployeerDashboard/RequestAsset";
+import Myteam from "../pages/deshBoard/EmployeerDashboard/Myteam";
+import Profile from "../pages/deshBoard/EmployeerDashboard/Profile";
+import MyAssets from "../pages/deshBoard/EmployeerDashboard/MyAssets";
 
 
 export const router = createBrowserRouter([
@@ -31,4 +41,52 @@ export const router = createBrowserRouter([
             }
         ]
     },
+    // dashboard layout
+    {
+        path: "dashboard",
+        element: <DashBoardLayout></DashBoardLayout>,
+
+        children: [
+            {
+                path: '/dashboard',
+                element: <AssetList></AssetList>
+            },
+            {
+                path: 'dashboard/addAsset',
+                element: <AddAsset></AddAsset>
+            },
+            {
+                path: 'dashboard/allRequest',
+                element: <AllRequest></AllRequest>
+            },
+            {
+                path: 'dashboard/employeeList',
+                element: <EmployeeList></EmployeeList>
+            },
+            {
+                path: 'dashboard/upgradePakage',
+                element: <Package></Package>
+            },
+
+            // employee routs
+            {
+                path: 'dashboard/myAsset',
+                element: <MyAssets></MyAssets>
+            },
+            {
+                path: 'dashboard/requestAsset',
+                element: <RequestAsset></RequestAsset>
+            },
+            {
+                path: 'dashboard/myteam',
+                element: <Myteam></Myteam>
+            },
+            {
+                path: 'dashboard/profile',
+                element: <Profile></Profile>
+            },
+
+
+        ]
+    }
 ]);

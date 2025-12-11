@@ -46,7 +46,11 @@ const Navbar = () => {
                     <li><Link to={'/'}>Home</Link></li>
                     <li><Link to={'/joinAsEmployee'}>Join as Employee</Link></li>
                     <li><Link to={'/JoinAsHrManager'}>Join as HR Manager</Link></li>
+                    {user && (
+                        <li><Link to={'/dashboard'}>Dashboard</Link></li>
+                    )
 
+                    }
 
                 </ul>
             </div>
