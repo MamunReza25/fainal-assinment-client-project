@@ -3,6 +3,7 @@ import Bannar from '../bannar/Bannar';
 import About from '../about/About';
 import Package from '../packegeSection/Package';
 import FeaturesShowcase from '../featuresShowcase/FeaturesShowcase';
+import Testimoniyal from '../testimonial/Testimoniyal';
 
 const Home = () => {
     return (
@@ -11,6 +12,7 @@ const Home = () => {
             <About></About>
             <Package></Package>
             <FeaturesShowcase></FeaturesShowcase>
+            <Testimoniyal></Testimoniyal>
         </div>
     );
 };
