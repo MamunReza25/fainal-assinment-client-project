@@ -41,7 +41,7 @@ const DashBoardLayout = () => {
                             </Link>
                         </li>
                         {/* our menubar list hr manager */}
-                        <li>HR Manager</li>
+                        <li className='btn bg-blue-500'>HR Manager</li>
                         <Link to={'/dashboard'}><li>Asset List </li></Link>
                         <Link to={'dashboard/addAsset'}><li> Add an Asset </li></Link>
                         <Link to={'dashboard/allRequest'}><li>All Requests Page </li></Link>
@@ -49,7 +49,7 @@ const DashBoardLayout = () => {
                         <Link to={'dashboard/upgradePakage'}><li>Upgrade Package</li></Link>
 
                         {/* our menubar list employeer */}
-                        <li>Employee Dashboard</li>
+                        <li className='btn bg-purple-500'>Employee Dashboard</li>
                         <Link to={'dashboard/myAsset'}><li>My Assets Page </li></Link>
                         <Link to={'dashboard/requestAsset'}><li> Request an Asset </li></Link>
                         <Link to={'dashboard/myteam'}><li>My Team Page </li></Link>
