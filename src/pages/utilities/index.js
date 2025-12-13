@@ -9,4 +9,9 @@ export const imageUpload = async imageData => {
         formData
     )
     return data?.data?.display_url
-}
+};
+// save Or Update Users account
+export const saveOrUpdateUsers = async (usersData) => {
+    const { data } = await axios.post(`${import.meta.env.VITE_baseURL}/users`, usersData)
+    return data;
+};

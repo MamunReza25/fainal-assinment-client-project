@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
-import { imageUpload } from '../../utilities';
+import { imageUpload, saveOrUpdateUsers } from '../../utilities';
 import LoaddingSpinnar from '../../home/shared/loaddingspinnar/LoaddingSpinnar';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router';
 
 
 const EmployeeRegister = () => {
-    const { registerUser, loading, signInGoogle } = useAuth();
+    const { registerUser, loading, signInGoogle, updateUserProfile } = useAuth();
     const navigate = useNavigate();
 
     const {
@@ -31,6 +31,12 @@ const EmployeeRegister = () => {
             console.log("Uploaded Image URL:", imageURL);
 
             const result = await registerUser(email, password);
+            await saveOrUpdateUsers({ name, email, image: imageURL, role: "employee" });
+            // 3. Update Firebase Profile
+            await updateUserProfile({
+                displayName: name,
+                photoURL: imageURL,
+            });
             console.log("Registered User:", result.user);
 
 
@@ -44,19 +50,23 @@ const EmployeeRegister = () => {
     };
 
     // googole sinup
-    const handleGoogleSinUp = () => {
-        signInGoogle()
-            .then(res => {
-                console.log(res)
-                toast.success("account create succesfully")
-                navigate("/")
-            })
-            .catch(error => {
-                console.log(error)
-                toast.error("account create failled")
+    // const handleGoogleSinUp = async () => {
 
-            })
-    }
+    //     try {
+    //         const { user } = await signInGoogle();
+    //         await saveOrUpdateUsers({ name: user?.displayName, email: user?.email, image: user?.photoURL });
+
+
+
+    //         toast.success("account create succesfully")
+    //         navigate('/')
+    //     } catch (error) {
+    //         console.log("Register Error:", error.message);
+    //         toast.error("account create failled")
+    //     }
+
+
+    // }
 
 
     return (
@@ -132,12 +142,12 @@ const EmployeeRegister = () => {
 
                         {loading ? "Creating Employeer Account..." : " Register Employeer Account"}
                     </button>
-                    <div>or</div>
+                    {/* <div>or</div>
                     <button type="submit" onClick={handleGoogleSinUp}
                         className="inline-block px-5 py-3 rounded-xl font-semibold text-white bg-gray-500 shadow-lg transform transition duration-200 hover:-translate-y-1 hover:scale-102 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-cyan-200 active:translate-y-0"
                         aria-label="Create HR Account">
                         Ceate an Google
-                    </button>
+                    </button> */}
 
                 </div>
 

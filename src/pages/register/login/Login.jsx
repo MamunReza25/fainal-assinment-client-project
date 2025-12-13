@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
+import { saveOrUpdateUsers } from '../../utilities';
 
 const Login = () => {
     const { signInUser } = useAuth();
@@ -17,7 +18,9 @@ const Login = () => {
     const handleLogin = (data) => {
         const { email, password } = data
         signInUser(email, password)
+
             .then(result => {
+                saveOrUpdateUsers({ name: data.displayName, email, image: data.imageURL });
                 console.log(result.user)
                 toast.success("Login succesfuly")
                 navigate('/')

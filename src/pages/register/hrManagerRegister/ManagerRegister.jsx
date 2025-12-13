@@ -1,12 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../../../hooks/useAuth';
-import { imageUpload } from '../../utilities';
+import { imageUpload, saveOrUpdateUsers } from '../../utilities';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 
 const ManagerRegister = () => {
-    const { registerUser, updateUserProfile, signInGoogle, loading } = useAuth();
+    const { registerUser, updateUserProfile, loading } = useAuth();
     const navigate = useNavigate();
 
     const {
@@ -25,7 +25,16 @@ const ManagerRegister = () => {
 
             // 2. Create user in Firebase
             const result = await registerUser(email, password);
-
+            await saveOrUpdateUsers({
+                name,
+                date, companyName,
+                email, image: imageURL,
+                // Auto-assigned fields
+                role: "HR Manager",
+                packageLimit: 5,
+                currentEmployees: 0,
+                subscription: "basic"
+            });
             // 3. Update Firebase Profile
             await updateUserProfile({
                 displayName: name,
@@ -42,15 +51,16 @@ const ManagerRegister = () => {
     };
 
     // Google Login
-    const handleGoogleLogin = async () => {
-        try {
-            await signInGoogle();
-            toast.success("Login successful!");
-            navigate('/');
-        } catch (error) {
-            toast.error("Google Sign-in failed!");
-        }
-    };
+    // const handleGoogleLogin = async () => {
+    //     try {
+    //         const { user } = await signInGoogle();
+    //         saveOrUpdateUsers({ name: user?.displayName, email: user?.email, image: user?.photoURL });
+    //         toast.success("Login successful!");
+    //         navigate('/');
+    //     } catch (error) {
+    //         toast.error("Google Sign-in failed!");
+    //     }
+    // };
 
     return (
         <div className='flex justify-center items-center flex-col h-screen w-full'>
@@ -140,17 +150,17 @@ const ManagerRegister = () => {
                     >
                         {loading ? "Creating Account..." : "Register Manager Account"}
                     </button>
-
-                    <div className="text-center">Or</div>
+                    {/* 
+                    <div className="text-center">Or</div> */}
 
                     {/* Google Button — type="button" is FIXED */}
-                    <button
+                    {/* <button
                         type="button"
                         onClick={handleGoogleLogin}
                         className="inline-block px-5 py-3 rounded-xl font-semibold text-white bg-gray-500 shadow-lg hover:-translate-y-1 transition"
                     >
                         Sign in with Google
-                    </button>
+                    </button> */}
                 </div>
             </form>
         </div>

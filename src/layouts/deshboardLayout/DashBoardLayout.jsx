@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router';
+import useRole from '../../hooks/useRole';
 
 const DashBoardLayout = () => {
+    const [role] = useRole()
+    console.log(role)
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -41,19 +44,44 @@ const DashBoardLayout = () => {
                             </Link>
                         </li>
                         {/* our menubar list hr manager */}
-                        <li className='btn bg-blue-500'>HR Manager</li>
-                        <Link to={'/dashboard'}><li>Asset List </li></Link>
-                        <Link to={'dashboard/addAsset'}><li> Add an Asset </li></Link>
-                        <Link to={'dashboard/allRequest'}><li>All Requests Page </li></Link>
-                        <Link to={'dashboard/employeeList'}><li>My Employee List </li></Link>
-                        <Link to={'dashboard/upgradePakage'}><li>Upgrade Package</li></Link>
+                        {role === "HR Manager" && (
+
+                            <>
+                                <li className='btn bg-blue-500'>HR Manager</li>
+
+                                <Link to="dashboard/myAsset">
+                                    <li>Asset List</li>
+                                </Link>
+
+                                <Link to="dashboard/addAsset">
+                                    <li>Add an Asset</li>
+                                </Link>
+
+                                <Link to="dashboard/allRequest">
+                                    <li>All Requests Page</li>
+                                </Link>
+
+                                <Link to="dashboard/employeeList">
+                                    <li>My Employee List</li>
+                                </Link>
+
+                                <Link to="dashboard/upgradePakage">
+                                    <li>Upgrade Package</li>
+                                </Link>
+                            </>
+                        )}
 
                         {/* our menubar list employeer */}
-                        <li className='btn bg-purple-500'>Employee Dashboard</li>
-                        <Link to={'dashboard/myAsset'}><li>My Assets Page </li></Link>
-                        <Link to={'dashboard/requestAsset'}><li> Request an Asset </li></Link>
-                        <Link to={'dashboard/myteam'}><li>My Team Page </li></Link>
-                        <Link to={'dashboard/profile'}><li> Profile Page (Shared)</li></Link>
+                        {role === "employee" && (
+
+                            <>
+                                <li className='btn bg-purple-500'>Employee Dashboard</li>
+                                <Link to={'dashboard/myAsset'}><li>My Assets Page </li></Link>
+                                <Link to={'dashboard/requestAsset'}><li> Request an Asset </li></Link>
+                                <Link to={'dashboard/myteam'}><li>My Team Page </li></Link>
+                                <Link to={'dashboard/profile'}><li> Profile Page (Shared)</li></Link>
+                            </>
+                        )}
                         <li>
                             <button className="tooltip tooltip-right lg:tooltip-none" data-tip="Settings">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4">

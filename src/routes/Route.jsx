@@ -15,6 +15,7 @@ import RequestAsset from "../pages/deshBoard/EmployeerDashboard/RequestAsset";
 import Myteam from "../pages/deshBoard/EmployeerDashboard/Myteam";
 import Profile from "../pages/deshBoard/EmployeerDashboard/Profile";
 import MyAssets from "../pages/deshBoard/EmployeerDashboard/MyAssets";
+import PrivateRoute from "./PrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -44,16 +45,18 @@ export const router = createBrowserRouter([
     // dashboard layout
     {
         path: "dashboard",
-        element: <DashBoardLayout></DashBoardLayout>,
+        element: < PrivateRoute >
+            <DashBoardLayout></DashBoardLayout>
+        </PrivateRoute >,
 
         children: [
             {
-                path: '/dashboard',
-                element: <AssetList></AssetList>
+                path: 'dashboard/myAsset',
+                element: <PrivateRoute><AssetList></AssetList></PrivateRoute>
             },
             {
                 path: 'dashboard/addAsset',
-                element: <AddAsset></AddAsset>
+                element: <PrivateRoute> <AddAsset></AddAsset></PrivateRoute>
             },
             {
                 path: 'dashboard/allRequest',
@@ -61,29 +64,29 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'dashboard/employeeList',
-                element: <EmployeeList></EmployeeList>
+                element: <PrivateRoute> <EmployeeList></EmployeeList></PrivateRoute>
             },
             {
                 path: 'dashboard/upgradePakage',
-                element: <Package></Package>
+                element: <PrivateRoute><Package></Package></PrivateRoute>
             },
 
             // employee routs
             {
                 path: 'dashboard/myAsset',
-                element: <MyAssets></MyAssets>
+                element: <PrivateRoute> <MyAssets></MyAssets></PrivateRoute>
             },
             {
                 path: 'dashboard/requestAsset',
-                element: <RequestAsset></RequestAsset>
+                element: <PrivateRoute> <RequestAsset></RequestAsset></PrivateRoute>
             },
             {
                 path: 'dashboard/myteam',
-                element: <Myteam></Myteam>
+                element: <PrivateRoute><Myteam></Myteam></PrivateRoute>
             },
             {
                 path: 'dashboard/profile',
-                element: <Profile></Profile>
+                element: <PrivateRoute><Profile></Profile></PrivateRoute>
             },
 
 
